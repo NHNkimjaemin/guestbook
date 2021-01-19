@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-@EntityListeners(value = {AuditingEntityListener.class })  //객체의 생성, 변경을 감지
+@EntityListeners(value = {AuditingEntityListener.class })  // JPA 내부에서 객체의 생성, 변경을 감지
 @Getter
 abstract class BaseEntity {
 
