@@ -1,7 +1,7 @@
 package com.example.gb.repository;
 
-import com.example.gb.entity.GuestBook;
-import com.example.gb.entity.QGuestBook;
+import com.example.gb.entity.Guestbook;
+import com.example.gb.entity.QGuestbook;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.junit.jupiter.api.Test;
@@ -35,11 +35,11 @@ public class GuestbookRepositoryTests {
 
     @Test
     public void updateTest() {
-        Optional<GuestBook> result = guestbookRepository.findById(300L);
+        Optional<Guestbook> result = guestbookRepository.findById(300L);
 
         if(result.isPresent()){
 
-            GuestBook guestBook = result.get();
+            Guestbook guestBook = result.get();
             guestBook.changeContent("ChangedContent");
             guestBook.changeTitle("ChangedTitle");
 
@@ -52,20 +52,20 @@ public class GuestbookRepositoryTests {
 
         Pageable pageable = PageRequest.of(0, 10, Sort.by("gno").descending());
 
-        QGuestBook qGuestBook = QGuestBook.guestBook;  // 동적 처리를 위해 q도메인 클래스를 얻어옴.
+        QGuestbook qGuestbook = QGuestbook.guestbook;  // 동적 처리를 위해 q도메인 클래스를 얻어옴.
 
         String keyword = "1";
 
         BooleanBuilder builder = new BooleanBuilder();
 
-        BooleanExpression expression = qGuestBook.title.contains(keyword);
+        BooleanExpression expression = qGuestbook.title.contains(keyword);
 
         builder.and(expression);
 
-        Page<GuestBook> result = guestbookRepository.findAll(builder, pageable);
+        Page<Guestbook> result = guestbookRepository.findAll(builder, pageable);
 
-        result.stream().forEach(guestBook -> {
-            System.out.println(guestBook);
+        result.stream().forEach(guestbook -> {
+            System.out.println(guestbook);
         });
 
     }
@@ -75,21 +75,21 @@ public class GuestbookRepositoryTests {
 
         Pageable pageable = PageRequest.of(0, 10, Sort.by("gno").descending());
 
-        QGuestBook qGuestBook = QGuestBook.guestBook;
+        QGuestbook qGuestbook = QGuestbook.guestbook;
 
         String keyword = "1";
 
         BooleanBuilder builder = new BooleanBuilder();
 
-        BooleanExpression exTitle = qGuestBook.title.contains(keyword);
-        BooleanExpression exContent = qGuestBook.content.contains(keyword);
+        BooleanExpression exTitle = qGuestbook.title.contains(keyword);
+        BooleanExpression exContent = qGuestbook.content.contains(keyword);
         BooleanExpression exAll = exTitle.or(exContent);
 
         builder.and(exAll);
 
-        builder.and(qGuestBook.gno.gt(0L));  // greater than
+        builder.and(qGuestbook.gno.gt(0L));  // greater than
 
-        Page<GuestBook> result = guestbookRepository.findAll(builder, pageable);
+        Page<Guestbook> result = guestbookRepository.findAll(builder, pageable);
 
         result.stream().forEach(System.out::println);
     }
