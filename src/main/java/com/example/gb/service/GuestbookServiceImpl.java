@@ -21,7 +21,7 @@ import java.util.function.Function;
 
 @Service
 @Log4j2
-@RequiredArgsConstructor  //의존성 자동주
+@RequiredArgsConstructor  //의존성 자동주입
 public class GuestbookServiceImpl implements GuestbookService {
 
     private final GuestbookRepository repository;  //반드시 final 왜?
