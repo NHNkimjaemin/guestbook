@@ -59,7 +59,7 @@ public class GuestbookServiceImpl implements GuestbookService {
     public GuestbookDTO read(Long gno) {
         Optional<Guestbook> result = repository.findById(gno);
 
-        return result.isPresent()? entityToDto(result.get()) : null;
+        return result.map(this::entityToDto).orElse(null);
     }
 
     @Override
